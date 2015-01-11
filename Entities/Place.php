@@ -5,7 +5,7 @@ use Mitch\LaravelDoctrine\Traits\Timestamps;
 
 /**
  * @ORM\Entity()
- * @ORM\Table(name="posts")
+ * @ORM\Table(name="place.places")
  * @ORM\HasLifecycleCallbacks()
  */
 class Place
