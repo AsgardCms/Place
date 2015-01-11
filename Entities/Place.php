@@ -2,6 +2,8 @@
 
 use Doctrine\ORM\Mapping as ORM;
 use Mitch\LaravelDoctrine\Traits\Timestamps;
+use Doctrine\Common\Collections\ArrayCollection;
+use Modules\Core\Doctrine\Translatable;
 
 /**
  * @ORM\Entity()
@@ -10,14 +12,14 @@ use Mitch\LaravelDoctrine\Traits\Timestamps;
  */
 class Place
 {
-    use Timestamps;
+    use Timestamps, Translatable;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
     private $id;
-
     /**
      * @ORM\Embedded(class="Modules\Place\ValueObjects\Email")
      */
@@ -34,5 +36,13 @@ class Place
      * @ORM\Embedded(class="Modules\Place\ValueObjects\Position")
      */
     private $position;
+    /**
+     * @ORM\OneToMany(targetEntity="Modules\Place\Entities\PlaceTranslation", mappedBy="place", cascade={"persist", "remove"})
+     */
+    private $translation;
 
+    public function __construct()
+    {
+        $this->translation = new ArrayCollection();
+    }
 }
